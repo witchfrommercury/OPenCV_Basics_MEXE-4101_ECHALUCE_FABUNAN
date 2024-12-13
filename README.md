@@ -162,8 +162,97 @@ Overall Workflow
 
 [] Drawing Rectangles On Cars On The Highway
 
-![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
+```ruby
+import numpy as np
+# (Not used in this script, but often included for array operations in OpenCV)
+import cv2
+# OpenCV library for image and video processing
+import threading
+# Used for concurrent execution of video processing tasks
 
+# Function to process a single video file
+def process_video(video_path, output_path, haar_cascade_path):
+    # Load the Haar Cascade for car detection from the specified XML file
+    car_cascade = cv2.CascadeClassifier(haar_cascade_path)
+
+    # Open the input video file
+    cap = cv2.VideoCapture(video_path)
+
+    # Retrieve video properties such as width, height, and frames per second (fps)
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+    # Define the codec for the output video file and initialize VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
+
+    # Loop through each frame of the video
+    while cap.isOpened():
+        ret, frame = cap.read()
+        # Read a frame from the video
+        if not ret:
+        # Break the loop if no more frames are available
+            break
+
+        # Convert the frame to grayscale (required for Haar cascade detection)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # Detect cars in the frame using the Haar cascade
+        cars = car_cascade.detectMultiScale(gray, 1.3, 5)
+
+        # Draw rectangles around detected cars
+        for (x, y, w, h) in cars:
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 3)
+            # Red rectangle, thickness 3
+
+        # Write the processed frame with annotations to the output video
+        out.write(frame)
+
+    # Release resources to free up memory
+    cap.release()
+    # Close the video file
+    out.release()
+    # Close the output file
+
+# Path to the Haar cascade XML file for car detection
+haar_cascade = 'haarcascade_car.xml'
+# List of input video file paths
+videos = [
+    'Car Set 1.mp4',
+    'Car Set 2.mp4',
+    'Car Set 3.mp4',
+    'Car Set 4.mp4',
+    'Car Set 5.mp4'
+]
+# List of corresponding output video file paths
+output_videos = [
+    'Car Detector 1.mp4',
+    'Car Detector 2.mp4',
+    'Car Detector 3.mp4',
+    'Car Detector 4.mp4',
+    'Car Detector 5.mp4'
+]
+
+# List to hold thread objects
+threads = []
+
+# Create and start a thread for processing each video
+for i in range(len(videos)):
+# Initialize a new thread to process the video using the `process_video` function
+    thread = threading.Thread(target=process_video, args=(videos[i], output_videos[i], haar_cascade))
+    threads.append(thread)
+    # Add the thread to the list
+    thread.start()
+    # Start the thread
+
+# Wait for all threads to finish processing
+for thread in threads:
+    thread.join()
+    # Block the main thread until the current thread completes
+
+# Print a message when all videos have been processed
+print("Processing complete. All videos have been saved.")
+```  
 ---
 
 ![image](https://github.com/user-attachments/assets/bac81746-5142-4d18-99b3-fbec35d0f53d)
