@@ -41,7 +41,9 @@ import cv2
 import threading
 ```
 • numpy: Although unused in this code, it is often used in OpenCV for image manipulation (e.g., arrays for images).
+
 • cv2: OpenCV's Python library for computer vision tasks such as image processing, object detection, and video manipulation.
+
 • threading: Enables concurrent processing to handle multiple video files simultaneously, optimizing runtime when processing multiple videos.
 
 ---
@@ -51,48 +53,47 @@ import threading
 car_cascade = cv2.CascadeClassifier(haar_cascade_path)
 ```
 • Haar cascades are pre-trained object detection classifiers.
+
 • Here, a Haar cascade trained to detect cars is loaded.
----
+
 ```
 cap = cv2.VideoCapture(video_path)
 ```
 • Opens a video file for frame-by-frame processing.
----
 ```
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 ```
 • Retrieves video properties such as width, height, and frame rate (FPS) for output video creation.
----
 ```
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 ```
 • Sets up the codec (mp4v) for saving the processed video and creates a VideoWriter object.
----
 ```
 ret, frame = cap.read()
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 cars = car_cascade.detectMultiScale(gray, 1.3, 5)
 ```
 • Read each frame (cap.read()).
+
 • Converts the frame to grayscale (cv2.cvtColor) as Haar cascades work best on single-channel images.
+
 • Detects cars using car_cascade.detectMultiScale():
+
     • 1.3: Scale factor (how much the image size is reduced at each scale).
+    
     • 5: Minimum neighbors (the number of rectangles around a detected region for it to be considered valid).
----
 ```
 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 3)
 ```
 • Draws rectangles around detected cars on the frame.
 • (0, 0, 255) specifies the rectangle color (red), and 3 is the thickness.
----
 ```
 out.write(frame)
 ```
 • Writes the processed frame to the output video.
----
 ```
 cap.release()
 out.release()
@@ -108,7 +109,9 @@ videos = ['Car Set 1.mp4', 'Car Set 2.mp4', ...]
 output_videos = ['Car Detector 1.mp4', 'Car Detector 2.mp4', ...]
 ```
 • haar_cascade: Path to the Haar cascade XML file for car detection.
+
 • videos: List of input video paths.
+
 • output_videos: Corresponding output paths for processed videos.
 
 ---
@@ -125,10 +128,14 @@ for thread in threads:
     thread.join()
 ```
 • Purpose: Allows simultaneous processing of multiple videos to save time.
+
 • Steps:
-  • A new thread is created for each video using threading.Thread with process_video as the target function.
-  • Threads are started using thread.start().
-  • thread.join() ensures the main program waits for all threads to finish before proceeding.
+
+    • A new thread is created for each video using threading. Thread with process_video as the target function.
+  
+    • Threads are started using thread.start().
+  
+    • thread.join() ensures the main program waits for all threads to finish before proceeding.
 
 ---
 
