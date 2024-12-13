@@ -34,6 +34,45 @@ Highly performing machine learning models trained to identify, segment, and anal
 
 ### 🚗 Project Method
 
+
+- Import Necessary Libraries
+  
+Use libraries like OpenCV and NumPy for image and video processing.
+
+- Load Pre-trained Model
+  
+Load a Haar Cascade XML file (or other detection models, such as YOLO or SSD) for vehicle detection.
+
+- Video Input
+  
+Read the video file or capture video frames from a live feed.
+
+- Preprocess Video Frames
+  
+Convert each frame to grayscale to improve detection accuracy.
+Resize or normalize frames if necessary to fit model requirements.
+
+- Vehicle Detection
+ 
+Apply the detection model (in this case, the Haar Cascade) to classify the objects in the frame.
+Retrieve the bounding boxes for the vehicles
+
+- Draw Geometric Shapes
+
+Overlay rectangles or other geometric shapes around the vehicles that are classified
+
+- Save the Output Processed
+  
+Write the output into a new video file, or stream them out in real time
+
+
 ### 🚗 Conclusion
 
+- This project has, therefore highlighted the critical role of shapes in geometric advancements in applications for vehicle analysis using computers. It is through this use that we have created strong and interpretable models to detect, segment, and track vehicles with very high accuracy in different settings. These annotated datasets, together with real-time systems and scalable pipelines, enhance the effectiveness and reliability of existing technology but also provide a potential platform for innovation in sectors like autonomous driving, traffic management, and smart surveillance.
+
+- The project's outputs demonstrate significant potential to solve challenging problems in vehicle-related technologies through rigorous validation and real-world testing. The tools and methodologies developed here offer actionable insights and practical solutions that bridge the gap between theoretical research and applied systems. This initiative not only advances computer vision capabilities but also contributes to building safer, smarter, and more efficient transportation ecosystems.
+
 ### 🚗 Additional Materials
+
+![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
+
