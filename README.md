@@ -192,7 +192,11 @@ Overall Workflow
 
 ---
 
+### References
 
+https://github.com/misbah4064/car_detector_haarcascades
+
+https://www.youtube.com/watch?v=zc6AP7B-CgI
 
 
 
