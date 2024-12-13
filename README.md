@@ -133,7 +133,22 @@ cv2_imshow(dilate_image)
 
 ![image](https://github.com/user-attachments/assets/2e156f4f-b7a7-4ed3-869d-8aa048e6f589)
 
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
 
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/woman.jpg")
+cv2_imshow(image)
+dst = cv2.fastNlMeansDenoisingColored(image, None, 50, 20, 7, 15)
+
+display = np.hstack((image, dst))
+cv2_imshow(display)
+```
+![image](https://github.com/user-attachments/assets/2c0561f1-d155-4e51-9b79-b171b52252d6)
+
+```ruby
+```
 
 
 
