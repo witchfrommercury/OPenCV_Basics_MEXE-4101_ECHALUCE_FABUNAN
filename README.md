@@ -169,6 +169,24 @@ cv2.putText(img,"A woman",(200,350),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,255),2)
 ```
 ![image](https://github.com/user-attachments/assets/6645c2ac-9fbf-4657-b41a-da49d67a4a6b)
 
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+img = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/85d8ed0e9f2abdaad7bc0cca01298992.jpg")
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+faces = face_cascade.detectMultiScale(gray,1.3,5)
+for (x,y,w,h) in faces:
+  cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3)
+
+cv2_imshow(img)
+```
+![image](https://github.com/user-attachments/assets/577e22a2-f5dd-4f2b-9826-afa5ad1875e9)
+
+
 
 
 ![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
