@@ -186,7 +186,146 @@ cv2_imshow(img)
 ```
 ![image](https://github.com/user-attachments/assets/577e22a2-f5dd-4f2b-9826-afa5ad1875e9)
 
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
 
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/OIP (7).jpg")
+
+
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
+edges = cv2.Canny(gray, 50, 150)
+
+
+contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+
+contour_image = image.copy()
+
+cv2.drawContours(contour_image, contours, -1, (0, 255, 0), 2)
+
+
+for contour in contours:
+  
+  epsilon = 0.02 * cv2.arcLength(contour, True)
+  approx = cv2.approxPolyDP(contour, epsilon, True)
+
+ 
+  x, y, w, h = cv2.boundingRect(approx)
+
+  
+  if len(approx) == 3:
+      shape = "Triangle"
+  elif len(approx) == 4:
+      
+      aspect_ratio = float(w) / h
+      shape = "Square" if 0.95 <= aspect_ratio <= 1.05 else "Rectangle"
+  elif len(approx) > 4:
+      shape = "Circle"
+  else:
+      shape = "Polygon"
+
+ 
+  cv2.putText(contour_image, shape, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+
+
+stacked_result = np.hstack((cv2.resize(image, (300, 300)),
+                          cv2.resize(cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR), (300, 300)),
+                          cv2.resize(contour_image, (300, 300))))
+
+
+cv2_imshow(stacked_result)
+
+```
+
+![image](https://github.com/user-attachments/assets/6ed77ee4-b239-4a05-a718-f9ecfd7166e2)
+
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/85d8ed0e9f2abdaad7bc0cca01298992.jpg")
+Gaussian = cv2.GaussianBlur(image,(7,7),0)
+Median = cv2.medianBlur(image,5)
+
+display = np.hstack((Gaussian,Median))
+cv2_imshow(display)
+```
+![image](https://github.com/user-attachments/assets/c51ae4c2-2628-4a2f-841b-5644939706c2)
+
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/OIP (7).jpg")
+
+
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
+_, threshold = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
+
+
+contours, _ = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+
+segmented_image = np.zeros_like(image)
+
+
+for i, contour in enumerate(contours):
+
+  mask = np.zeros_like(gray)
+  cv2.drawContours(mask, [contour], -1, 255, -1)
+
+  
+  segmented_part = cv2.bitwise_and(image, image, mask=mask)
+
+  
+  segmented_image = cv2.add(segmented_image, segmented_part)
+
+  
+  x, y, w, h = cv2.boundingRect(contour)
+  cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+
+
+cv2_imshow(image)  
+cv2_imshow(segmented_image)  
+```
+
+![image](https://github.com/user-attachments/assets/095dc95c-8b56-421b-9b1b-02ef60bf281a)
+![image](https://github.com/user-attachments/assets/baa35161-a3ef-473b-bda6-c3dfe2bd69f7)
+
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/woman.jpg")
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+canny_image = cv2.Canny(gray,150, 200)
+kernel = np.ones((1,1), np.uint8)
+erode_image = cv2.erode(canny_image,kernel, iterations=1)
+kernel1 = np.ones((3,3), np.uint8)
+dilate_image = cv2.dilate(erode_image, kernel1, iterations=1)
+
+font = cv2.FONT_HERSHEY_SIMPLEX
+cv2.putText(canny_image, 'Canny Image', (10, 30), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+cv2.putText(erode_image, 'Eroded', (10, 30), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+cv2.putText(dilate_image, 'Feature Refined', (10, 30), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+display = np.hstack((canny_image,erode_image,dilate_image))
+cv2_imshow(display)
+```
+
+![image](https://github.com/user-attachments/assets/6fe65525-1f45-4d87-ac75-1ac80e1b10fe)
 
 
 ![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
