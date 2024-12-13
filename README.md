@@ -68,13 +68,24 @@ Write the output into a new video file, or stream them out in real time
 
 ### 🚗 Conclusion
 
-- This project has, therefore highlighted the critical role of shapes in geometric advancements in applications for vehicle analysis using computers. It is through this use that we have created strong and interpretable models to detect, segment, and track vehicles with very high accuracy in different settings. These annotated datasets, together with real-time systems and scalable pipelines, enhance the effectiveness and reliability of existing technology but also provide a potential platform for innovation in sectors like autonomous driving, traffic management, and smart surveillance.
-
-- The project's outputs demonstrate significant potential to solve challenging problems in vehicle-related technologies through rigorous validation and real-world testing. The tools and methodologies developed here offer actionable insights and practical solutions that bridge the gap between theoretical research and applied systems. This initiative not only advances computer vision capabilities but also contributes to building safer, smarter, and more efficient transportation ecosystems.
-
 - This program is used to detect cars in a video using a Haar Cascade classifier as the feature descriptor. It takes frames from a given video file, detects cars, draws rectangles around them, and then writes the video output. In testing the system on five videos, it was observed that for some of the videos the system was only able to identify one car per frame, while for other videos the system was able to identify multiple cars in the same frame. This variability may be attributed to the quality of the videos used, lighting, camera view point, or just the nature of the Haar Cascade classifier. There could also be false negatives and inconsistent detections due to the use of pre-trained Haar Cascade features in the system (haarcascade_car.xml). Despite the fact that the code does its job of detecting faces in videos successfully, there are built-in object detection models like YOLO and SSD that could be used, or detection parameters could be tweaked for better results, or the quality of the videos could be enhanced using some pre-processing techniques. In summary, the system presented herein exhibits functional performance in car detection, but there is certainly room for improvement in terms of accuracy and stability.
 
 ### 🚗 Additional Materials
 
 ![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
+
+![image](https://github.com/user-attachments/assets/bac81746-5142-4d18-99b3-fbec35d0f53d)
+
+![image](https://github.com/user-attachments/assets/2ee39d3d-978a-411f-b2bc-e4eef5485554)
+
+![image](https://github.com/user-attachments/assets/be388145-0dbb-4a5d-ab50-06e262c4e431)
+
+![image](https://github.com/user-attachments/assets/b84a2b70-0291-4999-8847-81a413afbc77)
+
+![image](https://github.com/user-attachments/assets/92328f6a-f9ff-49dd-bae1-fe9bc259d0ec)
+
+
+
+
+
 
