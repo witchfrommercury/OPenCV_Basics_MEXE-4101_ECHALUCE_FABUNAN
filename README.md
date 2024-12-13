@@ -72,6 +72,71 @@ Write the output into a new video file, or stream them out in real time
 
 ### 🚗 Additional Materials
 
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+
+image = cv2.imread('/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/woman.jpg')
+print(image.shape)
+
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+print(gray.shape)
+cv2_imshow(gray)
+```
+
+![image](https://github.com/user-attachments/assets/45dbb238-2467-4c8f-8f64-46b83141abda)
+
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/woman.jpg")
+cv2_imshow(image)
+
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+canny_image = cv2.Canny(gray,150, 200)
+cv2_imshow(canny_image)
+
+```
+![image](https://github.com/user-attachments/assets/0aada210-c0b3-472e-a5ef-a22bfd35ff9b)
+
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/woman.jpg")
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+canny_image = cv2.Canny(gray,150, 200)
+kernel = np.ones((1,2), np.uint8)
+
+erode_image = cv2.erode(canny_image,kernel, iterations=1)
+cv2_imshow(erode_image)
+```
+
+![image](https://github.com/user-attachments/assets/131a922d-f08d-4ea1-bf2c-7b13c27169ef)
+
+```ruby
+import cv2
+from google.colab.patches import cv2_imshow
+import numpy as np
+
+image = cv2.imread("/content/OPenCV_Basics_MEXE-4101_ECHALUCE_FABUNAN/Images/woman.jpg")
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+canny_image = cv2.Canny(gray,150, 200)
+kernel = np.ones((5,5), np.uint8)
+
+dilate_image = cv2.dilate(canny_image, kernel, iterations=1)
+cv2_imshow(dilate_image)
+```
+
+![image](https://github.com/user-attachments/assets/2e156f4f-b7a7-4ed3-869d-8aa048e6f589)
+
+
+
+
+
 ![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
 
 ![image](https://github.com/user-attachments/assets/bac81746-5142-4d18-99b3-fbec35d0f53d)
