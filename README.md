@@ -34,130 +34,109 @@ Highly performing machine learning models trained to identify, segment, and anal
 
 ### 🚗 Project Method
 
-- Import Libraries
+- Imports
 ```   
-import numpy as np 
+import numpy as np
 import cv2
+import threading
 ```
-• numpy: A library for numerical computations. Although it's imported here, it is not directly used 
-in the provided code. 
-• cv2: OpenCV, a library for computer vision tasks such as image processing, video analysis, and 
-object detection.
+• numpy: Although unused in this code, it is often used in OpenCV for image manipulation (e.g., arrays for images).
+• cv2: OpenCV's Python library for computer vision tasks such as image processing, object detection, and video manipulation.
+• threading: Enables concurrent processing to handle multiple video files simultaneously, optimizing runtime when processing multiple videos.
 
 ---
 
-- Define File Paths
+- process_video Function
 ```   
-haar_cascade = 'haarcascade_car.xml'  # Path to Haar Cascade file 
-video = 'cars5.mp4'  # Path to the video file 
+car_cascade = cv2.CascadeClassifier(haar_cascade_path)
 ```
-• haar_cascade: Specifies the path to the Haar Cascade XML file used for car detection. This file 
-contains pre-trained data for detecting cars in images. 
-• video: Specifies the path to the input video file (cars5.mp4).
-
+• Haar cascades are pre-trained object detection classifiers.
+• Here, a Haar cascade trained to detect cars is loaded.
 ---
-- Open the Video File
 ```
-cap = cv2.VideoCapture(video) 
-car_cascade = cv2.CascadeClassifier(haar_cascade)
+cap = cv2.VideoCapture(video_path)
 ```
-• cv2.VideoCapture(video): Opens the video file for processing. The cap object is used to read 
-video frames. 
-• cv2.CascadeClassifier(haar_cascade): Loads the Haar Cascade XML file for detecting cars. The 
-car_cascade object is used to perform detection.
-
+• Opens a video file for frame-by-frame processing.
 ---
-- Retrieve Video Properties
 ```
-frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)) 
-frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)) 
+frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 ```
-• cv2.CAP_PROP_FRAME_WIDTH: Retrieves the width of each video frame. 
-• cv2.CAP_PROP_FRAME_HEIGHT: Retrieves the height of each video frame. 
-• cv2.CAP_PROP_FPS: Retrieves the video's frames per second (FPS). 
-These properties are used to configure the output video.
-
+• Retrieves video properties such as width, height, and frame rate (FPS) for output video creation.
 ---
-- Define Video Writer
 ```
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for mp4 format 
-out = cv2.VideoWriter('Car_Detector5.mp4', fourcc, fps, (frame_width, frame_height))
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 ```
-• cv2.VideoWriter_fourcc(*'mp4v'): Specifies the codec for encoding the output video. 'mp4v' is 
-used for MP4 files. 
-• cv2.VideoWriter(): Creates a VideoWriter object out to save the processed video. Parameters:  
-o 'Car_Detector5.mp4': Output file name. 
-o fourcc: Codec for encoding. 
-o fps: Frames per second for the output video. 
-o (frame_width, frame_height): Frame dimensions of the output video.
-
+• Sets up the codec (mp4v) for saving the processed video and creates a VideoWriter object.
 ---
-- Process Video Frames
 ```
-while cap.isOpened(): 
 ret, frame = cap.read()
-if not ret: 
-break
-```
-• cap.isOpened(): Checks if the video file is open and ready for processing. 
-• cap.read(): Reads the next frame from the video.  
-o ret: Boolean indicating if the frame was read successfully. 
-o frame: The current frame. 
-If no frame is read (ret is False), the loop exits.
-
----
-- Convert Frame to Grayscale
-```
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-```
-• cv2.cvtColor(): Converts the frame from color (BGR) to grayscale. Haar Cascade works better on 
-grayscale images because it reduces computational complexity.
-
----
-- Detect Cars
-```
 cars = car_cascade.detectMultiScale(gray, 1.3, 5)
 ```
-• detectMultiScale(): Detects objects (cars) in the grayscale image. Parameters:  
-o gray: Input grayscale frame. 
-o 1.3: Scale factor for resizing the image during detection. Larger values make detection 
-faster but less accurate. 
-o 5: Minimum number of neighbors for a rectangle to be considered a valid detection. 
-The function returns a list of bounding boxes for detected cars, where each bounding box is represented 
-as (x, y, w, h): 
-• (x, y): Top-left corner of the bounding box. 
-• (w, h): Width and height of the bounding box.
-
+• Read each frame (cap.read()).
+• Converts the frame to grayscale (cv2.cvtColor) as Haar cascades work best on single-channel images.
+• Detects cars using car_cascade.detectMultiScale():
+    • 1.3: Scale factor (how much the image size is reduced at each scale).
+    • 5: Minimum neighbors (the number of rectangles around a detected region for it to be considered valid).
 ---
-- Draw Bounding Boxes
 ```
-for (x, y, w, h) in cars: 
-cv2.rectangle(frame, (x, y), (x + w + 5, y + h + 5), (0, 0, 255), 3)
+cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 3)
 ```
-• cv2.rectangle(): Draws rectangles around detected cars on the original frame. Parameters:  
-o frame: The original frame to draw on. 
-o (x, y): Top-left corner of the rectangle. 
-o (x + w + 5, y + h + 5): Bottom-right corner (slightly extended for better visibility). 
-o (0, 0, 255): Rectangle color (red in BGR format). 
-o 3: Thickness of the rectangle.
-
+• Draws rectangles around detected cars on the frame.
+• (0, 0, 255) specifies the rectangle color (red), and 3 is the thickness.
 ---
-- Write Processed Frame
 ```
 out.write(frame)
 ```
-• Writes the processed frame (with bounding boxes) to the output video file.
-
+• Writes the processed frame to the output video.
 ---
-- Release Resources
 ```
-cap.release() 
+cap.release()
 out.release()
 ```
-• cap.release(): Closes the video file and releases resources associated with reading it. 
-• out.release(): Closes the output video file and releases resources associated with writing it. 
-This ensures proper cleanup after processing.
+• Frees up memory by releasing the video capture and writer objects.
+
+---
+
+- Paths
+```   
+haar_cascade = 'haarcascade_car.xml'
+videos = ['Car Set 1.mp4', 'Car Set 2.mp4', ...]
+output_videos = ['Car Detector 1.mp4', 'Car Detector 2.mp4', ...]
+```
+• haar_cascade: Path to the Haar cascade XML file for car detection.
+• videos: List of input video paths.
+• output_videos: Corresponding output paths for processed videos.
+
+---
+
+- Multi-threading
+```   
+threads = []
+for i in range(len(videos)):
+    thread = threading.Thread(target=process_video, args=(videos[i], output_videos[i], haar_cascade))
+    threads.append(thread)
+    thread.start()
+
+for thread in threads:
+    thread.join()
+```
+• Purpose: Allows simultaneous processing of multiple videos to save time.
+• Steps:
+  • A new thread is created for each video using threading.Thread with process_video as the target function.
+  • Threads are started using thread.start().
+  • thread.join() ensures the main program waits for all threads to finish before proceeding.
+
+---
+
+- Completion Message
+```   
+print("Processing complete. All videos have been saved.")
+```
+• Indicates that all video processing is done.
 
 ---
 Overall Workflow 
