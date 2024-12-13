@@ -148,7 +148,26 @@ cv2_imshow(display)
 ![image](https://github.com/user-attachments/assets/2c0561f1-d155-4e51-9b79-b171b52252d6)
 
 ```ruby
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+img = np.zeros((512, 512, 3), np.uint8)
+
+cv2.circle(img, (300,300), 50, (0,255,0),5)
+cv2.rectangle(img,(100,100),(400,500),(0,0,255),5)
 ```
+![image](https://github.com/user-attachments/assets/251757c8-6f00-4573-b412-73a0b78b08da)
+
+```ruby
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+img = np.zeros((512, 512, 3), np.uint8)
+cv2.putText(img,"A woman",(200,350),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,255),2)
+```
+![image](https://github.com/user-attachments/assets/6645c2ac-9fbf-4657-b41a-da49d67a4a6b)
 
 
 
