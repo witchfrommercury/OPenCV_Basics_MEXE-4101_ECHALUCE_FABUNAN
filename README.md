@@ -72,6 +72,24 @@ Write the output into a new video file, or stream them out in real time
 
 ### 🚗 Additional Materials
 
+[] Drawing Rectangles On Cars On The Highway
+
+![image](https://github.com/user-attachments/assets/77e6fa78-0643-4fb7-a9cb-e69c8bfab0e3)
+
+![image](https://github.com/user-attachments/assets/bac81746-5142-4d18-99b3-fbec35d0f53d)
+
+![image](https://github.com/user-attachments/assets/2ee39d3d-978a-411f-b2bc-e4eef5485554)
+
+![image](https://github.com/user-attachments/assets/be388145-0dbb-4a5d-ab50-06e262c4e431)
+
+![image](https://github.com/user-attachments/assets/b84a2b70-0291-4999-8847-81a413afbc77)
+
+![image](https://github.com/user-attachments/assets/92328f6a-f9ff-49dd-bae1-fe9bc259d0ec)
+
+[] OPEN CV OTHER ACTIVITIES
+
+Converting Images to Grayscale
+
 ```ruby
 import cv2
 from google.colab.patches import cv2_imshow
@@ -85,6 +103,8 @@ cv2_imshow(gray)
 ```
 
 ![image](https://github.com/user-attachments/assets/45dbb238-2467-4c8f-8f64-46b83141abda)
+
+Visualizing Edge Detection
 
 ```ruby
 import cv2
@@ -100,6 +120,8 @@ cv2_imshow(canny_image)
 
 ```
 ![image](https://github.com/user-attachments/assets/0aada210-c0b3-472e-a5ef-a22bfd35ff9b)
+
+Demonstrating Morphological Erosion
 
 ```ruby
 import cv2
@@ -117,6 +139,8 @@ cv2_imshow(erode_image)
 
 ![image](https://github.com/user-attachments/assets/131a922d-f08d-4ea1-bf2c-7b13c27169ef)
 
+Demonstrating Morphological Dilation
+
 ```ruby
 import cv2
 from google.colab.patches import cv2_imshow
@@ -133,6 +157,8 @@ cv2_imshow(dilate_image)
 
 ![image](https://github.com/user-attachments/assets/2e156f4f-b7a7-4ed3-869d-8aa048e6f589)
 
+Reducing Noise in Photos
+
 ```ruby
 import cv2
 from google.colab.patches import cv2_imshow
@@ -147,6 +173,8 @@ cv2_imshow(display)
 ```
 ![image](https://github.com/user-attachments/assets/2c0561f1-d155-4e51-9b79-b171b52252d6)
 
+Drawing Geometric Shapes on Images
+
 ```ruby
 import cv2
 import numpy as np
@@ -159,6 +187,7 @@ cv2.rectangle(img,(100,100),(400,500),(0,0,255),5)
 ```
 ![image](https://github.com/user-attachments/assets/251757c8-6f00-4573-b412-73a0b78b08da)
 
+Adding Text to Images
 ```ruby
 import cv2
 import numpy as np
@@ -168,6 +197,8 @@ img = np.zeros((512, 512, 3), np.uint8)
 cv2.putText(img,"A woman",(200,350),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,255),2)
 ```
 ![image](https://github.com/user-attachments/assets/6645c2ac-9fbf-4657-b41a-da49d67a4a6b)
+
+Detecting Faces in Group Photos
 
 ```ruby
 import cv2
@@ -185,6 +216,8 @@ for (x,y,w,h) in faces:
 cv2_imshow(img)
 ```
 ![image](https://github.com/user-attachments/assets/577e22a2-f5dd-4f2b-9826-afa5ad1875e9)
+
+Extracting Contours for Shape Analysis
 
 ```ruby
 import cv2
@@ -244,6 +277,7 @@ cv2_imshow(stacked_result)
 
 ![image](https://github.com/user-attachments/assets/6ed77ee4-b239-4a05-a718-f9ecfd7166e2)
 
+Applying Image Blurring Techniques
 ```ruby
 import cv2
 from google.colab.patches import cv2_imshow
@@ -258,6 +292,7 @@ cv2_imshow(display)
 ```
 ![image](https://github.com/user-attachments/assets/c51ae4c2-2628-4a2f-841b-5644939706c2)
 
+Segmenting Images Based on Contours
 ```ruby
 import cv2
 from google.colab.patches import cv2_imshow
@@ -303,6 +338,7 @@ cv2_imshow(segmented_image)
 ![image](https://github.com/user-attachments/assets/095dc95c-8b56-421b-9b1b-02ef60bf281a)
 ![image](https://github.com/user-attachments/assets/baa35161-a3ef-473b-bda6-c3dfe2bd69f7)
 
+Combining Erosion and Dilation for Feature Refinement
 ```ruby
 import cv2
 from google.colab.patches import cv2_imshow
